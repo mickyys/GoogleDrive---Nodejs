@@ -3,14 +3,14 @@ const readline = require('readline');
 const {google} = require('googleapis');
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
+const SCOPES = ['https://www.googleapis.com/auth/drive'];
 const TOKEN_PATH = 'token.json';
 
 // Load client secrets from a local file.
 fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Drive API.
-  authorize(JSON.parse(content), listFiles);
+  authorize(JSON.parse(content), uploadFile);
 });
 
 /**
@@ -89,7 +89,7 @@ function listFiles(auth) {
 function uploadFile(auth){
   const drive = google.drive({version: 'v3', auth});
   var fileMetadata = {
-    'name': 'VidaSecurity1.png'
+    'name': 'VidaSecurity2.png'
   };
   var media = {
     mimeType: 'image/png',
@@ -104,7 +104,7 @@ function uploadFile(auth){
       // Handle error
       console.error(err);
     } else {
-      console.log('File Id: ', file.id);
+      console.log(file.data.id);
     }
   });
 }
